@@ -7,4 +7,18 @@
     width: 2.5rem;
     height: 2.5rem;
   }
+
+  svg:hover {
+    cursor: pointer;
+    fill: white;
+    g {
+      fill: white;
+    }
+  }
+
+  g {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
 }
