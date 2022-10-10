@@ -1,20 +1,7 @@
 header {
   width: 100%;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-direction: row;
-  background-color: rgba(203, 213, 225, 0.8);
-  color: rgb(51 65 85);
-  padding: 2rem 1rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-
-  @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    background-color: rgb(248, 250, 252, 0.4);
-    backdrop-filter: blur(10px);
-    color: rgb(51 65 85);
-  }
 }
 
 .logo {

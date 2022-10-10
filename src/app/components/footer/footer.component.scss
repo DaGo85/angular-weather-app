@@ -1,0 +1,14 @@
+footer {
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: rgb(51 65 85);
+
+  address {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    text-align: center;
+  }
+}
