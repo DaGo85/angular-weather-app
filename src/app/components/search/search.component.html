@@ -1,6 +1,16 @@
 <form autoComplete="off">
   <div>
-    <input placeholder="Search for a location..." type="text" name="location" />
+    <input
+      [(ngModel)]="geoInput"
+      placeholder="Search for a location..."
+      type="text"
+      name="geoInput"
+      id="geoInput"
+      (keyup)="getGeoCode()"
+    />
+    <div *ngFor="let item of locationsArray">
+      <p>{{ item?.name }}, {{ item?.country }}, {{ item?.state }}</p>
+    </div>
   </div>
   <button>Search</button>
 </form>

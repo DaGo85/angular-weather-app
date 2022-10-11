@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class GeocodeService {
   constructor(private http: HttpClient) {}
 
-  getCurrentWeather(loc: string) {
-    return this.http.get(
+  getGeoCode(location: string): Observable<any> {
+    return this.http.get<any>(
       `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${5}&appid=${
         environment.API_KEY
       }`
