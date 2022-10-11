@@ -12,6 +12,7 @@ import { SocialComponent } from './components/social/social.component';
 import { CurrentComponent } from './components/current/current.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { DailyComponent } from './components/daily/daily.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DailyComponent } from './components/daily/daily.component';
     CurrentComponent,
     ChartComponent,
     DailyComponent,
+    MainComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

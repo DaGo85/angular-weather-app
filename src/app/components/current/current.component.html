@@ -1,9 +1,9 @@
-<section class="current card-setup">
+<section *ngIf="currentWeather.current" class="current card-setup">
   <h2>Current weather in:</h2>
   <h3>.name .country .state</h3>
   <ul class="head">
     <li></li>
-    <li><b>Temp:</b>{{ " " }}</li>
+    <li><b>Temp:</b>{{ " " }}{{ currentWeather.current.temp }}</li>
     <li><b>Feels like:</b>{{ " " }}</li>
     <li><b>Humidity:</b>{{ " " }}</li>
     <li><b>UV index:</b>{{ " " }}</li>
