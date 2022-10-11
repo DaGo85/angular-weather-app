@@ -8,7 +8,13 @@ import { GeocodeService } from 'src/app/services/geocode.service';
 })
 export class SearchComponent implements OnInit {
   geoInput: string = '';
-  locationsArray: { name: string; country: string; state: string }[] = [];
+  locationsArray: {
+    name: string;
+    country: string;
+    state: string;
+    lat: string;
+    lon: string;
+  }[] = [];
 
   constructor(private geocodeService: GeocodeService) {}
 

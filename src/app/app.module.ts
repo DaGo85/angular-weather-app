@@ -9,6 +9,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './components/search/search.component';
 import { SocialComponent } from './components/social/social.component';
+import { CurrentComponent } from './components/current/current.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { DailyComponent } from './components/daily/daily.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { SocialComponent } from './components/social/social.component';
     FooterComponent,
     SearchComponent,
     SocialComponent,
+    CurrentComponent,
+    ChartComponent,
+    DailyComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

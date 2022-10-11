@@ -122,6 +122,8 @@ p {
 }
 
 .card-setup {
+  position: relative;
+  z-index: 50;
   display: flex;
   align-items: center;
   background-color: rgba(203, 213, 225, 0.8);
