@@ -10,7 +10,9 @@
     />
     <ul *ngIf="locationsArray.length > 0" class="search-dropdown">
       <div *ngFor="let item of locationsArray">
-        <li>{{ item?.name }}, {{ item?.country }}, {{ item?.state }}</li>
+        <li (click)="getWeatherNow(item.lat, item.lon)">
+          {{ item?.name }}, {{ item?.country }}, {{ item?.state }}
+        </li>
       </div>
     </ul>
   </div>

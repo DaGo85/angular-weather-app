@@ -1,23 +1,35 @@
-<section *ngIf="currentWeather.current" class="current card-setup">
+<section *ngIf="weatherData.current" class="current card-setup">
   <h2>Current weather in:</h2>
   <h3>.name .country .state</h3>
   <ul class="head">
-    <li></li>
-    <li><b>Temp:</b>{{ " " }}{{ currentWeather.current.temp }}</li>
-    <li><b>Feels like:</b>{{ " " }}</li>
-    <li><b>Humidity:</b>{{ " " }}</li>
-    <li><b>UV index:</b>{{ " " }}</li>
+    <li>
+      <img
+        src="http://openweathermap.org/img/wn/{{
+          [weatherData.current.weather[0].icon]
+        }}.png"
+        alt=""
+      />{{ weatherData.current.weather[0].description }}
+    </li>
+    <li><b>Temp:</b>{{ " " }}{{ weatherData.current.temp }}</li>
+    <li><b>Feels like:</b>{{ " " }}{{ weatherData.current.feels_like }}</li>
+    <li><b>Humidity:</b>{{ " " }}{{ weatherData.current.humidity }}</li>
+    <li><b>UV index:</b>{{ " " }}{{ weatherData.current.uvi }}</li>
+    <hr />
   </ul>
   <ul class="main">
-    <li><b>Cloudiness:</b>{{ " " }}</li>
-    <li></li>
-    <li></li>
-    <li><b>Wind speed:</b>{{ " " }}</li>
-    <li><b>Visibility in m:</b>{{ " " }}</li>
+    <li><b>Cloudiness:</b>{{ " " }}{{ weatherData.current.clouds }}%</li>
+    <li *ngIf="weatherData.current.rain">{{ weatherData.current.rain }}mm</li>
+    <li *ngIf="!weatherData.current.rain">It is not raining!</li>
+    <li *ngIf="weatherData.current.snow">{{ weatherData.current.snow }}mm</li>
+    <li *ngIf="!weatherData.current.snow">It is not snowing!</li>
+    <li><b>Wind speed:</b>{{ " " }}{{ weatherData.current.wind_speed }}m/s</li>
+    <li>
+      <b>Visibility in m:</b>{{ " " }}{{ weatherData.current.visibility }}m
+    </li>
   </ul>
   <ul class="end">
-    <li><b>Current time:</b>{{ " " }}</li>
-    <li><b>Sunrise:</b>{{ " " }}</li>
-    <li><b>Sunset:</b>{{ " " }}</li>
+    <li><b>Current time:</b>{{ " " }}{{ weatherData.current.dt }}</li>
+    <li><b>Sunrise:</b>{{ " " }}{{ weatherData.current.sunrise }}</li>
+    <li><b>Sunset:</b>{{ " " }}{{ weatherData.current.sunset }}</li>
   </ul>
 </section>

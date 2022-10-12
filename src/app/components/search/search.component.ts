@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from 'src/app/services/geocode.service';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-search',
@@ -12,13 +13,20 @@ export class SearchComponent implements OnInit {
     name: string;
     country: string;
     state: string;
-    lat: string;
-    lon: string;
+    lat: number;
+    lon: number;
   }[] = [];
 
-  constructor(private geocodeService: GeocodeService) {}
+  constructor(
+    private geocodeService: GeocodeService,
+    private weatherService: WeatherService
+  ) {}
 
   ngOnInit(): void {}
+
+  getWeatherNow(lat: number, lon: number) {
+    this.weatherService.getWeather(lat, lon);
+  }
 
   getGeoCode() {
     if (this.geoInput.length <= 3) return;
