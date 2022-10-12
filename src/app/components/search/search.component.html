@@ -10,7 +10,16 @@
     />
     <ul *ngIf="locationsArray.length > 0" class="search-dropdown">
       <div *ngFor="let item of locationsArray">
-        <li (click)="getWeatherNow(item.lat, item.lon)">
+        <li
+          (click)="
+            getWeatherNow(item.lat, item.lon);
+            setLocationCur({
+              name: item?.name,
+              country: item?.country,
+              state: item?.state
+            })
+          "
+        >
           {{ item?.name }}, {{ item?.country }}, {{ item?.state }}
         </li>
       </div>

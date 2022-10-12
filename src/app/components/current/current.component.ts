@@ -9,16 +9,18 @@ import { WeatherData } from '../../models/weatherData.model';
 })
 export class CurrentComponent implements OnInit {
   weatherData: WeatherData | any = {};
+  locationData: {} | any;
 
   constructor(private weatherService: WeatherService) {}
-
-  currentWeather: WeatherData = this.weatherService.store as WeatherData;
 
   getFormatedDate(dateUnix: number) {
     return new Date(dateUnix * 1000).toString();
   }
 
   ngOnInit(): void {
+    this.weatherService.subscribeLocation().subscribe((response: any) => {
+      this.locationData = response;
+    });
     this.weatherService.subscribeWeather().subscribe((response: any) => {
       this.weatherData = {
         ...response,

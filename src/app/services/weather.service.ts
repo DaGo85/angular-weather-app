@@ -9,12 +9,21 @@ import { WeatherData } from '../models/weatherData.model';
 })
 export class WeatherService {
   subject = new BehaviorSubject<any>(null);
+  locationData = new BehaviorSubject<any>(null);
   store: WeatherData | {} = {} as WeatherData;
 
   constructor(private http: HttpClient) {}
 
   subscribeWeather(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  subscribeLocation(): Observable<any> {
+    return this.locationData.asObservable();
+  }
+
+  setLocation(data: any) {
+    this.locationData.next(data);
   }
 
   getWeather(lat: number, lon: number) {
@@ -25,11 +34,3 @@ export class WeatherService {
       .subscribe((response) => this.subject.next(response));
   }
 }
-
-//this.getWeather(46.57, 7.27
-
-//this.subject.next(this.store);
-
-/*this.store = this.http.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${environment.API_KEY}&units=metric`
-    );*/

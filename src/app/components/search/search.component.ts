@@ -22,11 +22,17 @@ export class SearchComponent implements OnInit {
     private weatherService: WeatherService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setLocationCur({ name: 'Bern', country: 'CH', state: 'Bern' });
+  }
 
   getWeatherNow(lat: number, lon: number) {
     this.weatherService.getWeather(lat, lon);
     this.locationsArray = [];
+  }
+
+  setLocationCur(data: any) {
+    this.weatherService.setLocation(data);
   }
 
   getGeoCode() {
