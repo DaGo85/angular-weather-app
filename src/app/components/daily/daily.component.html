@@ -1,8 +1,16 @@
 <section class="daily">
-  <div *ngFor="let day of dailyArray">
+  <div *ngFor="let day of dailyArray; let i = index">
     <ul class="card-setup">
-      <li><h2>date</h2></li>
-      <li>icon and weather</li>
+      <li>
+        <h2>{{ dayTime[i] }}</h2>
+      </li>
+      <li>
+        <img
+          alt="currently weather icon"
+          src="http://openweathermap.org/img/wn/{{ [day.weather[0].icon] }}.png"
+        />
+      </li>
+      <p>{{ day.weather[0].description }}</p>
       <li>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path

@@ -20,23 +20,17 @@ export class CurrentComponent implements OnInit {
 
   ngOnInit(): void {
     this.weatherService.subscribeWeather().subscribe((response: any) => {
-      this.weatherData = response;
+      this.weatherData = {
+        ...response,
+        current: {
+          ...response.current,
+          temp: response.current.temp.toFixed(),
+          dt: this.getFormatedDate(response.current.dt),
+          sunrise: this.getFormatedDate(response.current.sunrise),
+          sunset: this.getFormatedDate(response.current.sunset),
+        },
+      };
     });
     this.weatherService.getWeather(46.57, 7.27);
   }
 }
-
-/*
-this.weatherService.getWeather(46.57, 7.27).subscribe((weather) => {
-      this.currentWeather = {
-        ...weather,
-        current: {
-          ...weather.current,
-          temp: weather.current.temp.toFixed(),
-          dt: this.getFormatedDate(weather.current.dt),
-          sunrise: this.getFormatedDate(weather.current.sunrise),
-          sunset: this.getFormatedDate(weather.current.sunset),
-        },
-      };
-    });
-*/

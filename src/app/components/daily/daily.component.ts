@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'app-daily',
@@ -11,20 +12,28 @@ export class DailyComponent implements OnInit {
     humidity: string;
     rain?: string;
     snow?: string;
-  }[] = [
-    {
-      temp: { day: '20', night: '10' },
-      humidity: '200',
-      rain: '200',
-    },
-    {
-      temp: { day: '20', night: '10' },
-      humidity: '200',
-      snow: '200',
-    },
-  ];
+    weather: { icon: string; description: string }[];
+  }[] = [];
+  dayTime: string[] = [];
 
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
-  ngOnInit(): void {}
+  getFormatedDate(dateUnix: number, index: number) {
+    return new Date(dateUnix * 1000 + index * 86400000).toLocaleDateString(
+      undefined,
+      {
+        day: '2-digit',
+        month: 'long',
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.weatherService.subscribeWeather().subscribe((response: any) => {
+      this.dailyArray = response.daily;
+      for (let i = 0; i < 8; i++) {
+        this.dayTime.push(this.getFormatedDate(response.current.dt, i));
+      }
+    });
+  }
 }

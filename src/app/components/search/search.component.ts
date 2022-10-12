@@ -26,6 +26,7 @@ export class SearchComponent implements OnInit {
 
   getWeatherNow(lat: number, lon: number) {
     this.weatherService.getWeather(lat, lon);
+    this.locationsArray = [];
   }
 
   getGeoCode() {
