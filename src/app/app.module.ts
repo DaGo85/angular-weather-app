@@ -31,3 +31,14 @@ import { MainComponent } from './components/main/main.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+/*
+let a = 0;
+for (a; a < 5; a++);
+console.log(a);
+
+const LA = 1,2,3,4
+const LB = 5
+const LC= 4
+const LD = 2,3,4,5
+*/

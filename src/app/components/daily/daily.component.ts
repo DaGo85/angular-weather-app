@@ -30,6 +30,7 @@ export class DailyComponent implements OnInit {
 
   ngOnInit(): void {
     this.weatherService.subscribeWeather().subscribe((response: any) => {
+      if (response === null) return;
       this.dailyArray = response.daily;
       for (let i = 0; i < 8; i++) {
         this.dayTime.push(this.getFormatedDate(response.current.dt, i));
