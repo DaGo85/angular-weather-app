@@ -1,26 +1,8 @@
-.axis {
-  font: 10px sans-serif;
+svg {
+  width: 900px;
+  height: 500px;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis-title {
-  fill: none;
-  stroke: black;
-  stroke-width: 0.5px;
-}
-
-.axis--x path {
-  /*display: none;*/
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+p {
+  font-family: Lato;
 }
