@@ -8,6 +8,7 @@
     font-size: 3rem;
     line-height: 1;
     padding-bottom: 2rem;
+    text-align: center;
   }
 
   h3 {
@@ -30,20 +31,33 @@
       margin-top: 1rem;
       border-color: rgb(148 163 184);
       border-width: 1px;
+      display: none;
+      width: 100%;
     }
   }
 
   .head {
     grid-column: span 3 / span 3;
+    align-items: center;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-transform: capitalize;
+    }
   }
 
   .main {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     grid-column: span 4 / span 4;
     border-left-width: 2px;
     border-right-width: 2px;
     border-color: rgb(148 163 184);
     align-items: center;
+    border-style: solid;
   }
 
   .end {
@@ -66,8 +80,10 @@
     }
 
     ul {
-      hr {
-        display: none;
+      li {
+        hr {
+          display: block;
+        }
       }
     }
 
