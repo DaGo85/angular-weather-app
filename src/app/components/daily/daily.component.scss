@@ -13,20 +13,28 @@
       gap: 1rem;
       height: 24rem;
       width: 18rem;
+      white-space: nowrap;
+      text-transform: capitalize;
 
       li {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 2rem;
+        padding-right: 2rem;
 
         svg {
-          width: 2.5rem;
+          width: 2rem;
         }
 
         span {
           display: flex;
           flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
         }
       }
     }
