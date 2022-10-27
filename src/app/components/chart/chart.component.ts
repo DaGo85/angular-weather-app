@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
-interface Stock {
-  date: Date;
-  value: number;
-}
-
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -14,23 +9,34 @@ interface Stock {
 export class ChartComponent implements OnInit {
   public title = 'Line Chart';
 
+  hourly: any[] = [
+    { date: 1666872879, value: 1 },
+    { date: 1666872890, value: 2 },
+    { date: 1666872891, value: 3 },
+    { date: 1666872892, value: 4 },
+    { date: 1666872893, value: 5 },
+    { date: 1666872894, value: 6 },
+    { date: 1666872895, value: 7 },
+    { date: 1666872896, value: 8 },
+    { date: 1666872897, value: 9 },
+    { date: 1666872898, value: 10 },
+  ];
+
   dates: any[] = [
     1666872879, 1666872890, 1666872891, 1666872892, 1666872893, 1666872894,
-    1666872895, 1666872896, 1666872897,
+    1666872895, 1666872896, 1666872897, 1666872898,
   ];
 
   temps: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  public fullData: { date: number; value: number }[] = [];
-
   margin = { top: 40, right: 48, bottom: 40, left: 40 };
-  width: number = 600;
+  width: number = 800 - this.margin.left - this.margin.right;
   height: number = 620 - this.margin.top - this.margin.bottom;
   viewBoxWidth = this.width + this.margin.left + this.margin.right;
   viewBoxHeight = this.height + this.margin.top + this.margin.bottom;
 
   draw() {
-    console.log(this.fullData);
+    console.log(this.hourly);
     let svg = d3
       .select('#my_dataviz')
       .attr('viewBox', [0, 0, this.viewBoxWidth, this.viewBoxHeight])
@@ -38,26 +44,27 @@ export class ChartComponent implements OnInit {
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
 
     // x axis
-    // @ts-ignore
-    let x = d3.scaleTime().domain(d3.extent(this.dates)).range([0, this.width]);
-
-    const xaxis = d3.axisBottom(x).tickFormat(d3.format('0'));
-    //.scale(x);
+    let x = d3
+      .scaleLinear()
+      .domain([d3.min(this.dates) - 2, d3.max(this.dates) + 2])
+      .range([0, this.width]);
 
     svg
       .append('g')
-      .attr('transform', 'translate(0,' + this.height + ')')
-      .call(xaxis);
+      .attr('transform', `translate(0, ${this.width})`)
+      .call(d3.axisBottom(x));
 
     //y axis
 
     let y = d3
       .scaleLinear()
-      // @ts-ignore
       .domain([d3.min(this.temps) - 2, d3.max(this.temps) + 2])
       .range([this.height, 0]);
 
-    svg.append('g').call(d3.axisLeft(y));
+    svg
+      .append('g')
+      .attr('transform', `translate(${this.height},0)`)
+      .call(d3.axisLeft(y));
 
     // Graph Label
     svg
@@ -88,7 +95,7 @@ export class ChartComponent implements OnInit {
       .attr('y', 0 - this.margin.top / 2)
       .text('Temp. in °C');
 
-    let line = svg
+    svg
       .append('path')
       .datum(this.temps)
       .attr('class', 'line')
@@ -104,7 +111,7 @@ export class ChartComponent implements OnInit {
     // @ts-ignore
     svg
       .append('path')
-      .datum(this.fullData)
+      .datum(this.hourly)
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 1.5)
@@ -118,10 +125,10 @@ export class ChartComponent implements OnInit {
       );
 
     // Create Dots
-    const circles = svg
+    svg
       .append('g')
       .selectAll('circle')
-      .data(this.fullData)
+      .data(this.hourly)
       .enter()
       .append('circle')
       .attr('cx', (d) => x(d.date))
@@ -133,9 +140,6 @@ export class ChartComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    this.dates.map((date, i) => {
-      this.fullData.push({ date: date, value: this.temps[i] });
-    });
     this.draw();
   }
 }

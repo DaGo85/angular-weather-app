@@ -1,3 +1,10 @@
-::ng-deep .myCircle:hover {
-  stroke: black;
+.chart {
+  position: relative;
+  width: 100%;
+  z-index: 500;
+}
+
+svg {
+  width: 800px;
+  height: 900px;
 }
