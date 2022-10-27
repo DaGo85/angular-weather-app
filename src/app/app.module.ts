@@ -13,6 +13,7 @@ import { CurrentComponent } from './components/current/current.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { DailyComponent } from './components/daily/daily.component';
 import { MainComponent } from './components/main/main.component';
+import { SkeletonCardComponent } from './skeletons/skeleton-card/skeleton-card.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MainComponent } from './components/main/main.component';
     ChartComponent,
     DailyComponent,
     MainComponent,
+    SkeletonCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

@@ -21,19 +21,19 @@
     line-height: 1;
   }
 
+  hr {
+    margin-top: 1rem;
+    border-color: rgb(148 163 184);
+    border-width: 1px;
+    display: none;
+    width: 100%;
+  }
+
   ul {
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
     gap: 1rem;
-
-    hr {
-      margin-top: 1rem;
-      border-color: rgb(148 163 184);
-      border-width: 1px;
-      display: none;
-      width: 100%;
-    }
   }
 
   .head {
@@ -61,6 +61,7 @@
   }
 
   .end {
+    text-align: center;
     align-items: center;
     justify-content: center;
     grid-column: span 5 / span 5;
@@ -79,12 +80,9 @@
       grid-column: span 12 / span 12;
     }
 
-    ul {
-      li {
-        hr {
-          display: block;
-        }
-      }
+    hr {
+      width: 90vw;
+      display: block;
     }
 
     .head {
@@ -93,6 +91,8 @@
 
     .main {
       grid-column: span 12 / span 12;
+
+      border-style: none;
     }
 
     .end {
