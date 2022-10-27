@@ -64,6 +64,6 @@
   </ul>
 </section>
 <app-skeleton-card
-  *ngIf="weatherData.current"
+  *ngIf="!weatherData.current"
   loadingLine="The Weather data for today will be provided soon!"
 ></app-skeleton-card>
