@@ -1,3 +1,4 @@
+import { WeatherService } from './../../services/weather.service';
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
@@ -9,25 +10,9 @@ import * as d3 from 'd3';
 export class ChartComponent implements OnInit {
   public title = 'Line Chart';
 
-  hourly: any[] = [
-    { date: 1666872879, value: 1 },
-    { date: 1666872890, value: 2 },
-    { date: 1666872891, value: 3 },
-    { date: 1666872892, value: 4 },
-    { date: 1666872893, value: 5 },
-    { date: 1666872894, value: 6 },
-    { date: 1666872895, value: 7 },
-    { date: 1666872896, value: 8 },
-    { date: 1666872897, value: 9 },
-    { date: 1666872898, value: 10 },
-  ];
-
-  dates: any[] = [
-    1666872879, 1666872890, 1666872891, 1666872892, 1666872893, 1666872894,
-    1666872895, 1666872896, 1666872897, 1666872898,
-  ];
-
-  temps: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  hourly: any[] = [];
+  dates: any[] = [];
+  temps: any[] = [];
 
   margin = { top: 40, right: 48, bottom: 40, left: 40 };
   width: number = 800 - this.margin.left - this.margin.right;
@@ -36,9 +21,8 @@ export class ChartComponent implements OnInit {
   viewBoxHeight = this.height + this.margin.top + this.margin.bottom;
 
   draw() {
-    console.log(this.hourly);
     let svg = d3
-      .select('#my_dataviz')
+      .select('#d3-chart')
       .attr('viewBox', [0, 0, this.viewBoxWidth, this.viewBoxHeight])
       .append('g')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
@@ -100,9 +84,9 @@ export class ChartComponent implements OnInit {
       .attr(
         'd',
         d3
-          .line()
-          .x((d) => x(d[0]))
-          .y((d) => y(d[1]))
+          .line() //@ts-ignore
+          .x((d) => x(d.dt)) //@ts-ignore
+          .y((d) => y(d.temp))
       );
 
     // Create Dots
@@ -112,7 +96,7 @@ export class ChartComponent implements OnInit {
       .data(this.hourly)
       .enter()
       .append('circle')
-      .attr('cx', (d) => x(d.dt * 1000))
+      .attr('cx', (d) => x(d.dt))
       .attr('cy', (d) => y(d.temp))
       .attr('r', 5)
       .attr('class', 'dot');
@@ -126,7 +110,7 @@ export class ChartComponent implements OnInit {
         .attr('class', 'tooltip')
         .style('opacity', 1)
         .html(
-          `<img
+          `<<img
               src=${`http://openweathermap.org/img/wn/${d.weather[0].icon}.png`}
               alt=${d.weather[0].description}
               width="40"
@@ -141,7 +125,7 @@ export class ChartComponent implements OnInit {
           })}, ${new Date(d.dt * 1000).toLocaleTimeString('default', {
             hour: 'numeric',
             minute: 'numeric',
-          })}`
+          })}>`
         );
     }
 
@@ -177,41 +161,21 @@ export class ChartComponent implements OnInit {
       .on('mouseover', onMouseOver)
       .on('mouseout', onMouseOut)
       .on('mousemove', onMouseMove);
-
-    svg
-      .append('path')
-      .datum(this.hourly)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1.5)
-      .attr(
-        'd',
-        d3
-          .line() // @ts-ignore
-          .x((d) => {
-            // @ts-ignore
-            console.log(d.date); // @ts-ignore
-            x(d.date);
-          }) // @ts-ignore
-          .y((d) => y(d.value))
-      );
-
-    // Create Dots
-    svg
-      .append('g')
-      .selectAll('circle')
-      .data(this.hourly)
-      .enter()
-      .append('circle')
-      .attr('cx', (d) => x(d.date))
-      .attr('cy', (d) => y(d.value))
-      .attr('r', 5)
-      .attr('class', 'dot');
   }
 
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
   public ngOnInit(): void {
-    this.draw();
+    this.weatherService.subscribeWeather().subscribe((response: any) => {
+      if (response === null) return;
+      this.hourly = response.hourly;
+      this.dates = response.hourly.map((h: any) => {
+        return h.dt;
+      });
+      this.temps = response.hourly.map((h: any) => {
+        return h.temp;
+      });
+      this.draw();
+    });
   }
 }
