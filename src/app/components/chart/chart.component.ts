@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit {
 
     svg
       .append('g')
-      .attr('transform', `translate(0, ${this.width})`)
+      .attr('transform', `translate(0, ${this.height})`)
       .call(d3.axisBottom(x));
 
     //y axis
@@ -61,10 +61,7 @@ export class ChartComponent implements OnInit {
       .domain([d3.min(this.temps) - 2, d3.max(this.temps) + 2])
       .range([this.height, 0]);
 
-    svg
-      .append('g')
-      .attr('transform', `translate(${this.height},0)`)
-      .call(d3.axisLeft(y));
+    svg.append('g').call(d3.axisLeft(y));
 
     // Graph Label
     svg
@@ -95,20 +92,92 @@ export class ChartComponent implements OnInit {
       .attr('y', 0 - this.margin.top / 2)
       .text('Temp. in °C');
 
+    // Create line
     svg
       .append('path')
-      .datum(this.temps)
+      .datum(this.hourly)
       .attr('class', 'line')
       .attr(
         'd',
-        // @ts-ignore
         d3
-          .line() // @ts-ignore
-          .x((d) => x(d.date)) // @ts-ignore
-          .y((d) => y(d.value))
+          .line()
+          .x((d) => x(d[0]))
+          .y((d) => y(d[1]))
       );
 
-    // @ts-ignore
+    // Create Dots
+    let circles = svg
+      .append('g')
+      .selectAll('circle')
+      .data(this.hourly)
+      .enter()
+      .append('circle')
+      .attr('cx', (d) => x(d.dt * 1000))
+      .attr('cy', (d) => y(d.temp))
+      .attr('r', 5)
+      .attr('class', 'dot');
+
+    // Tooltip data on mouseover
+    function onMouseOver(event: any, d: any) {
+      const [x, y] = d3.pointer(event);
+
+      d3.select('#d3-chart')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 1)
+        .html(
+          `<img
+              src=${`http://openweathermap.org/img/wn/${d.weather[0].icon}.png`}
+              alt=${d.weather[0].description}
+              width="40"
+              height="40"
+             /> ${d.weather[0].main}, <br/> Temperature: ${
+            d.temp
+          }°C<br/>Feels like: ${d.feels_like}°C<br/>Humidity: ${
+            d.humidity
+          }%<br/> ${new Date(d.dt * 1000).toLocaleDateString('default', {
+            day: 'numeric',
+            month: 'short',
+          })}, ${new Date(d.dt * 1000).toLocaleTimeString('default', {
+            hour: 'numeric',
+            minute: 'numeric',
+          })}`
+        );
+    }
+
+    //Tooltip trigger
+    let onMouseMove = (event: any, d: any) => {
+      const [x, y] = d3.pointer(event);
+      const isTooLow = y > this.height * 0.66;
+      const isTooRight = x > this.width * 0.9;
+
+      if (isTooLow) {
+        d3.select('.tooltip')
+          .style('left', `${x + 40}px`)
+          .style('top', `${y - 80}px`);
+        return;
+      }
+      if (isTooRight) {
+        d3.select('.tooltip')
+          .style('left', `${x - 100}px`)
+          .style('top', `${y + 40}px`);
+        return;
+      }
+
+      d3.select('.tooltip')
+        .style('left', `${x + 40}px`)
+        .style('top', `${y + 40}px`);
+    };
+
+    //Tooltip remove
+    function onMouseOut() {
+      d3.select('.tooltip').style('opacity', 0).remove();
+    }
+    circles
+      .on('mouseover', onMouseOver)
+      .on('mouseout', onMouseOut)
+      .on('mousemove', onMouseMove);
+
     svg
       .append('path')
       .datum(this.hourly)
@@ -117,10 +186,13 @@ export class ChartComponent implements OnInit {
       .attr('stroke-width', 1.5)
       .attr(
         'd',
-        // @ts-ignore
         d3
           .line() // @ts-ignore
-          .x((d) => x(d.date)) // @ts-ignore
+          .x((d) => {
+            // @ts-ignore
+            console.log(d.date); // @ts-ignore
+            x(d.date);
+          }) // @ts-ignore
           .y((d) => y(d.value))
       );
 
