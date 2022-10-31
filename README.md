@@ -1,27 +1,78 @@
-# AngularWeatherApp
+# Weather-APP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
+> A recreation of my Next.js(https://weather.davidgo.ch/) weather app, this time using Angular and SCSS. It displays various data about the current and upcoming weather.
 
-## Development server
+Live demo: https://angular-weather.davidgo.ch/
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Table of Contents
 
-## Code scaffolding
+- [General Info](#general-information)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Project Status](#project-status)
+- [Room for Improvement](#room-for-improvement)
+- [Contact](#contact)
+- [License](#license)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## General Information
 
-## Build
+This project was created with the purpose of learning Angular, d3 and SCSS.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The intention was to rebuild my Next.js weather app to learn and see the difference between Next.js and Angular.
 
-## Running unit tests
+## Technologies Used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Angular - version 14.2.0
+- rxjs - version 7.5.0
+- SCSS - version 1.55.0
+- d3 - version 7.6.1
+- TypeScript - version 4.7.2
 
-## Running end-to-end tests
+## Features
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Styled page for weather data display
+- Search function for cities
+- Extensive informations for the current day
+- Hourly temperature as a chart for the next 48 hours, which provides additional informations for every single hour as a tooltip
+- A preview for the next 8 days
 
-## Further help
+## Setup
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+For running it on your local environment first:
+
+`npm install or yarn install`
+
+You have to setup an .env with API_KEY=yourapikeyhere
+You can get an API key for free at: https://openweathermap.org/api
+
+To run development server:
+
+`ng serve`
+
+Open http://localhost:4200 with your browser to see the result.
+For a full list of dependencies take a look at package.json.
+
+## Usage
+
+This app has a default city. Also you can search for another location at the navbar.
+
+## Project Status
+
+Project is: _complete_
+
+This is the finished and working version of my Angular-Weather-APP.
+
+## Room for Improvement
+
+- Adding functionality for getting the visitors location
+- Improving browser compatibility
+
+## Contact
+
+Created by [@DaGo85](https://www.github.com/DaGo85/) - feel free to contact me!
+
+## License
+
+Feel free to use this code for your own projects!
