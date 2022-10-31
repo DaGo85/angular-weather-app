@@ -154,7 +154,7 @@ p {
   border-radius: 0.375rem;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   position: absolute;
-  z-index: 1000;
+  z-index: 100;
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 600;
@@ -162,6 +162,28 @@ p {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
+  left: 50vw;
+  top: 61vh;
+
+  @media screen and (min-width: 280px) {
+    top: 150vh;
+  }
+
+  @media screen and (min-width: 600px) {
+    top: 120vh;
+  }
+
+  @media screen and (min-width: 900px) {
+    top: 100vh;
+  }
+
+  @media screen and (min-width: 1200px) {
+    top: 80vh;
+  }
+
+  @media screen and (min-width: 1500px) {
+    top: 100vh;
+  }
 }
 
 .dot {

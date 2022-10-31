@@ -1,5 +1,5 @@
-import { WeatherService } from './../../services/weather.service';
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from './../../services/weather.service';
 import * as d3 from 'd3';
 
 @Component({
@@ -29,8 +29,11 @@ export class ChartComponent implements OnInit {
 
     // x axis
     let x = d3
-      .scaleLinear()
-      .domain([d3.min(this.dates) - 2, d3.max(this.dates) + 2])
+      .scaleTime()
+      .domain(
+        //@ts-ignore
+        d3.extent(this.dates)
+      )
       .range([0, this.width]);
 
     svg
@@ -85,7 +88,7 @@ export class ChartComponent implements OnInit {
         'd',
         d3
           .line() //@ts-ignore
-          .x((d) => x(d.dt)) //@ts-ignore
+          .x((d) => x(d.dt * 1000)) //@ts-ignore
           .y((d) => y(d.temp))
       );
 
@@ -96,7 +99,7 @@ export class ChartComponent implements OnInit {
       .data(this.hourly)
       .enter()
       .append('circle')
-      .attr('cx', (d) => x(d.dt))
+      .attr('cx', (d) => x(d.dt * 1000))
       .attr('cy', (d) => y(d.temp))
       .attr('r', 5)
       .attr('class', 'dot');
@@ -105,12 +108,12 @@ export class ChartComponent implements OnInit {
     function onMouseOver(event: any, d: any) {
       const [x, y] = d3.pointer(event);
 
-      d3.select('#d3-chart')
+      d3.select('body')
         .append('div')
         .attr('class', 'tooltip')
         .style('opacity', 1)
         .html(
-          `<<img
+          `<img
               src=${`http://openweathermap.org/img/wn/${d.weather[0].icon}.png`}
               alt=${d.weather[0].description}
               width="40"
@@ -125,7 +128,7 @@ export class ChartComponent implements OnInit {
           })}, ${new Date(d.dt * 1000).toLocaleTimeString('default', {
             hour: 'numeric',
             minute: 'numeric',
-          })}>`
+          })}`
         );
     }
 
@@ -134,29 +137,13 @@ export class ChartComponent implements OnInit {
       const [x, y] = d3.pointer(event);
       const isTooLow = y > this.height * 0.66;
       const isTooRight = x > this.width * 0.9;
-
-      if (isTooLow) {
-        d3.select('.tooltip')
-          .style('left', `${x + 40}px`)
-          .style('top', `${y - 80}px`);
-        return;
-      }
-      if (isTooRight) {
-        d3.select('.tooltip')
-          .style('left', `${x - 100}px`)
-          .style('top', `${y + 40}px`);
-        return;
-      }
-
-      d3.select('.tooltip')
-        .style('left', `${x + 40}px`)
-        .style('top', `${y + 40}px`);
     };
 
     //Tooltip remove
     function onMouseOut() {
       d3.select('.tooltip').style('opacity', 0).remove();
     }
+
     circles
       .on('mouseover', onMouseOver)
       .on('mouseout', onMouseOut)
@@ -170,7 +157,7 @@ export class ChartComponent implements OnInit {
       if (response === null) return;
       this.hourly = response.hourly;
       this.dates = response.hourly.map((h: any) => {
-        return h.dt;
+        return h.dt * 1000;
       });
       this.temps = response.hourly.map((h: any) => {
         return h.temp;
