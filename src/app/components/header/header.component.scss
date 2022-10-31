@@ -9,6 +9,11 @@ header {
   width: 4rem;
 }
 
+.angular-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
 @media screen and (max-width: 700px) {
   header {
     flex-direction: column-reverse;
