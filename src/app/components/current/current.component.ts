@@ -17,9 +17,10 @@ export class CurrentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.weatherData?.current?.snow);
     this.weatherService.subscribeWeather().subscribe((response: any) => {
       if (response === null) return;
+
+      console.log('test' + JSON.stringify(response));
       this.weatherData = {
         ...response,
         current: {
@@ -31,6 +32,7 @@ export class CurrentComponent implements OnInit {
         },
       };
     });
+
     this.weatherService.subscribeLocation().subscribe((response: any) => {
       this.locationData = response;
     });
