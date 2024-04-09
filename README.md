@@ -68,6 +68,7 @@ This is the finished and working version of my Angular-Weather-APP.
 
 - Adding functionality for getting the visitors location
 - Improving browser compatibility
+- creating a backend for more security
 
 ## Contact
 

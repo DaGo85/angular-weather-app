@@ -10,7 +10,6 @@ import { WeatherData } from '../../models/weatherData.model';
 export class CurrentComponent implements OnInit {
   weatherData: WeatherData | any = {};
   locationData: {} | any;
-
   constructor(private weatherService: WeatherService) {}
 
   getFormatedDate(dateUnix: number) {
@@ -18,6 +17,7 @@ export class CurrentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.weatherData?.current?.snow);
     this.weatherService.subscribeWeather().subscribe((response: any) => {
       if (response === null) return;
       this.weatherData = {

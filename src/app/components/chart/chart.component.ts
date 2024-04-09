@@ -21,6 +21,7 @@ export class ChartComponent implements OnInit {
   viewBoxHeight = this.height + this.margin.top + this.margin.bottom;
 
   draw() {
+    d3.selectAll('g > *').remove();
     let svg = d3
       .select('#d3-chart')
       .attr('viewBox', [0, 0, this.viewBoxWidth, this.viewBoxHeight])
@@ -162,6 +163,7 @@ export class ChartComponent implements OnInit {
       this.temps = response.hourly.map((h: any) => {
         return h.temp;
       });
+
       this.draw();
     });
   }
