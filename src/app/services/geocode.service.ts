@@ -11,7 +11,7 @@ export class GeocodeService {
 
   getGeoCode(location: string): Observable<any> {
     return this.http.get<any>(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${5}&appid=${
+      `https://pro.openweathermap.org/geo/1.0/direct?q=${location}&limit=${5}&appid=${
         environment.API_KEY
       }`
     );

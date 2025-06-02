@@ -29,7 +29,7 @@ export class WeatherService {
   getWeather(lat: number, lon: number) {
     this.store = this.http
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${environment.API_KEY}&units=metric`
+        `https://pro.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${environment.API_KEY}&units=metric`
       )
       .subscribe((response) => this.subject.next(response));
   }
